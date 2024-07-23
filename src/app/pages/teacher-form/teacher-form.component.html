@@ -1,0 +1,72 @@
+<div class=" py-10">
+    @if(authService.getUserDetail()){
+    <form [formGroup]="form" class="shadow w-1/3 mx-auto p-10 rounded-md" (ngSubmit)="onSubmit()">
+
+
+        <div class=" flex justify-between items-center">
+            <h1 class="text-2xl font-semibold mb-10">{{isEdit?'Edit teacher':'Add Teacher'}}</h1>
+
+
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 my-6  w-2/3 ">
+            <div class="text-gray-600 font-bold">Name </div>
+
+            <input matinput type="text" formControlName="name" class="border-2 border-primary  p-2 px-2 rounded-md"
+                placeholder="Name">
+
+
+
+            <div class="text-gray-600 font-bold">Picture </div>
+
+
+
+            <mat-select formControlName="pictureId" placeholder="Picture"
+                class="border-2 border-primary  p-2 px-2 rounded-md" (selectionChange)="selected($event.value)">
+
+                @for (item of pictures$ | async; track item)
+                {
+                <mat-option [value]="item.id">{{item.src}}</mat-option>
+                }
+            </mat-select>
+
+
+        </div>
+
+        @if (pictureName.startsWith('http')) {
+        <picture class="w-40 h-60 flex justify-center">
+            <source media='(min-width:10px)' [srcset]="[pictureName]">
+
+
+            <img mat-card-image src="" alt="Photo of a Shiba Inu">
+        </picture>
+        } @else {
+        <picture class="w-40 h-60 flex justify-center">
+
+            <source media='(min-width:10px)' [srcset]="['assets/Photo/'+pictureName]">
+
+
+            <img mat-card-image src="" alt="Photo of a Shiba Inu">
+        </picture>
+
+        }
+        <button class="bg-blue-500 shadow-md px-4 py-4 p-3 my-4  gap-5 rounded-md text-white">{{isEdit?'Edit
+            teacher':'Add
+            Teacher'}}
+        </button>
+        <a [routerLink]="'/teachers'" class="shadow-md rounded-mdp-3 my-4 px-4 py-4 ml-4 bg-blue-300 text-white ">
+            Cansel
+        </a>
+
+        {{form.value|json}}
+
+    </form> }
+    @else{
+    <h1 class="text-2xl">You are not logged in</h1>
+    <a routerLink="/login">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md">
+            Login
+        </button>
+    </a>
+    }
+</div>
