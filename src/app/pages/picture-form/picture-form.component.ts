@@ -26,10 +26,11 @@ export class PictureFormComponent implements OnInit, OnDestroy {
   id = 0;
 
   src = '';
-  //private toasterService: ToastrService
+
   constructor(private fb: FormBuilder,
     private activatedRouter: ActivatedRoute,
     private router: Router,
+    private toasterService: ToastrService
   ) {
   }
 
@@ -80,7 +81,7 @@ export class PictureFormComponent implements OnInit, OnDestroy {
       this.pictureformSubscription = this.pictureService.addPicture(this.form.value).subscribe({
         next: (response) => {
           console.log(response);
-          //  this.toasterService.success("Picture sucesfully added");
+          this.toasterService.success("Picture sucesfully added");
           this.router.navigateByUrl('/pictures');
         },
         error: err => {
@@ -94,10 +95,10 @@ export class PictureFormComponent implements OnInit, OnDestroy {
       this.pictureService.editPicture(this.id, this.form.value).subscribe(
         {
           next: value => {
-            //   this.toasterService.success("Edited sucessfully");
+            this.toasterService.success("Edited sucessfully");
             this.router.navigateByUrl('/pictures');
           }, error: err => {
-            // this.toasterService.error('Unable to edit');
+            this.toasterService.error('Unable to edit');
           }
         }
       )

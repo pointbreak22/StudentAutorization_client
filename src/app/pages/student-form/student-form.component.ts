@@ -12,6 +12,7 @@ import { Group } from '../../interfaces/group';
 import { Picture } from '../../interfaces/pictures';
 import { MatIcon } from '@angular/material/icon';
 import { AuthService } from '../../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-student-form',
@@ -43,14 +44,12 @@ export class StudentFormComponent implements OnInit, OnDestroy {
 
   groupId = 0;
   groupName = "";
-  //src = '/assets/Photo/1.png'
-  //src = 'https://disk.yandex.ru/client/disk/Picture?idApp=client&dialog=slider&idDialog=%2Fdisk%2FPicture%2F1.png';
-  // src = 'https://disk.yandex.ru/i/Ma_60-lhVs_brw';
-  //src = 'C:/Users/POINTBREAK22/Desktop/1.png'
+
 
   constructor(private fb: FormBuilder,
     private activatedRouter: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toasterService: ToastrService
   ) {
     activatedRouter.queryParams.subscribe(
       (queryParam: any) => {
@@ -68,7 +67,7 @@ export class StudentFormComponent implements OnInit, OnDestroy {
     );
   }
   selected($event: string) {
-    // this.pictureName = $event;
+
     this.pictureService.getPicture(+$event).subscribe({
       next: (response) => {
         this.pictureName = response.src;
@@ -101,7 +100,7 @@ export class StudentFormComponent implements OnInit, OnDestroy {
       this.studentformSubscription = this.studentService.addStudent(this.form.value).subscribe({
         next: (response) => {
           console.log(response);
-          //  this.toasterService.success("Teacher sucesfully added");
+          this.toasterService.success("Teacher sucesfully added");
 
           if (this.flagParams) {
             this.router.navigateByUrl('/groups/' + this.form.value.groupId);
@@ -120,8 +119,9 @@ export class StudentFormComponent implements OnInit, OnDestroy {
     else {
       this.studentService.editStudent(this.id, this.form.value).subscribe(
         {
-          next: value => {
-            //  this.toasterService.success("Edited sucessfully");
+          next: (response) => {
+            console.log(response);
+            this.toasterService.success("Edited sucessfully");
 
             if (this.flagParams) {
               this.router.navigateByUrl('/groups/' + this.form.value.groupId);
@@ -130,7 +130,7 @@ export class StudentFormComponent implements OnInit, OnDestroy {
               this.router.navigateByUrl('/students');
             }
           }, error: err => {
-            //    this.toasterService.error('Unable to edit');
+            this.toasterService.error('Unable to edit');
           }
         }
       )

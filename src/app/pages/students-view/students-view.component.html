@@ -20,14 +20,14 @@
 
 
                         @if (item.pictureName.startsWith('http')) {
-                        <picture class="w-30 h-40 flex justify-center">
+                        <picture class="w-24 h-40 flex justify-center">
                             <source media='(min-width:10px)' [srcset]="[item.pictureName]">
 
 
                             <img mat-card-image src="" alt="Photo of a Shiba Inu">
                         </picture>
                         } @else {
-                        <picture class="w-30 h-40 flex justify-center">
+                        <picture class="w-24 h-40 flex justify-center">
 
                             <source media='(min-width:10px)' [srcset]="['assets/Photo/'+item.pictureName]">
 
@@ -87,7 +87,7 @@
                             </svg>
                         </a>
                         <button (click)="delete(item.id)"
-                            class="p-2 bg-red-600 text-white rounded-full shadow-md hover:bg-red-400">
+                            class="p-3 bg-red-600 text-white rounded-full shadow-md hover:bg-red-400">
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-trash" viewBox="0 0 16 16">

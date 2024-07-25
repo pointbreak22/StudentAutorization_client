@@ -1,7 +1,7 @@
 export interface Teacher {
 
     id: number;
-    name: string;
+    fio: string;
 
     pictureId: number;
     pictureName: string;

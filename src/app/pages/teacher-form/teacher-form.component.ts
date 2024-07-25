@@ -36,12 +36,12 @@ export class TeacherFormComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private activatedRouter: ActivatedRoute,
     private router: Router,
-    // private toasterService: ToastrService
+    private toasterService: ToastrService
   ) {
   }
 
   selected($event: string) {
-    // this.pictureName = $event;
+
     this.pictureService.getPicture(+$event).subscribe({
       next: (response) => {
         this.pictureName = response.src;
@@ -67,7 +67,7 @@ export class TeacherFormComponent implements OnInit, OnDestroy {
       this.teacherformSubscription = this.teacherService.addTeacher(this.form.value).subscribe({
         next: (response) => {
           console.log(response);
-          //  this.toasterService.success("Teacher sucesfully added");
+          this.toasterService.success("Teacher sucesfully added");
           this.router.navigateByUrl('/teachers');
         },
         error: err => {
@@ -81,10 +81,10 @@ export class TeacherFormComponent implements OnInit, OnDestroy {
       this.teacherService.editTeacher(this.id, this.form.value).subscribe(
         {
           next: value => {
-            //  this.toasterService.success("Edited sucessfully");
+            this.toasterService.success("Edited sucessfully");
             this.router.navigateByUrl('/teachers');
           }, error: err => {
-            //    this.toasterService.error('Unable to edit');
+            this.toasterService.error('Unable to edit');
           }
         }
       )
@@ -125,7 +125,7 @@ export class TeacherFormComponent implements OnInit, OnDestroy {
     this.form = this.fb.group({
 
 
-      name: ['', Validators.required],
+      fio: ['', Validators.required],
       pictureId: [],
     });
 

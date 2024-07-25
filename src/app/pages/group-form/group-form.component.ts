@@ -14,6 +14,7 @@ import { Teacher } from '../../interfaces/teacher';
 import { MatSelectModule } from '@angular/material/select';
 import { Student } from '../../interfaces/students';
 import { StudentService } from '../../services/student.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-group-form',
@@ -40,7 +41,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   paramsSubscription!: Subscription;
   groupService = inject(GroupsService);
   studentService = inject(StudentService);
-
+  //toasterService!: ToastrService;
   students!: Observable<Student[]>
 
 
@@ -56,7 +57,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private activatedRouter: ActivatedRoute,
     private router: Router,
-    // private toasterService: ToastrService
+    private toasterService: ToastrService
   ) {
   }
 
@@ -64,7 +65,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
     this.studentService.deleteStudent(arg0).subscribe({
       next: (response) => {
         this.students = this.groupService.getStudents(arg0);
-        //  this.toasterService.success("Sucessfuly Deleted");
+        this.toasterService.success("Sucessfuly Deleted");
       }
     }
     )
@@ -98,7 +99,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
                     next: (values) => { this.courseName = values.name }
                   })
                   this.teacherService.getTeacher(response.teacherId).subscribe({
-                    next: (values) => { this.teacherName = values.name }
+                    next: (values) => { this.teacherName = values.fio }
                   })
                 }
 
@@ -149,7 +150,7 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       this.groupformSubscription = this.groupService.addGroup(this.form.value).subscribe({
         next: (response) => {
           console.log(response);
-          //  this.toasterService.success("Group sucesfully added");
+          this.toasterService.success("Group sucesfully added");
           this.router.navigateByUrl('/');
 
         },
@@ -164,10 +165,10 @@ export class GroupFormComponent implements OnInit, OnDestroy {
       this.groupService.editGroup(this.id, this.form.value).subscribe(
         {
           next: value => {
-            //  this.toasterService.success("Edited sucessfully");
+            this.toasterService.success("Edited sucessfully");
             this.router.navigateByUrl('/');
           }, error: err => {
-            //    this.toasterService.error('Unable to edit');
+            this.toasterService.error('Unable to edit');
           }
         }
       )

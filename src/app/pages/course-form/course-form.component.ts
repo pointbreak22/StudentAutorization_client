@@ -28,7 +28,7 @@ export class CourseFormComponent implements OnInit, OnDestroy {
   constructor(private fb: FormBuilder,
     private activatedRouter: ActivatedRoute,
     private router: Router,
-    //  private toasterService: ToastrService
+    private toasterService: ToastrService
   ) {
   }
   ngOnDestroy(): void {
@@ -46,7 +46,7 @@ export class CourseFormComponent implements OnInit, OnDestroy {
       this.courseformSubscription = this.courseService.addCourse(this.form.value).subscribe({
         next: (response) => {
           console.log(response);
-          //  this.toasterService.success("Course sucesfully added");
+          this.toasterService.success("Course sucesfully added");
           this.router.navigateByUrl('/courses');
         },
         error: err => {
@@ -60,10 +60,10 @@ export class CourseFormComponent implements OnInit, OnDestroy {
       this.courseService.editCourse(this.id, this.form.value).subscribe(
         {
           next: value => {
-            //      this.toasterService.success("Edited sucessfully");
+            this.toasterService.success("Edited sucessfully");
             this.router.navigateByUrl('/courses');
           }, error: err => {
-            //       this.toasterService.error('Unable to edit');
+            this.toasterService.error('Unable to edit');
           }
         }
       )
