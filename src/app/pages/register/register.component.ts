@@ -65,21 +65,21 @@ export class RegisterComponent implements OnInit {
       password: ['', Validators.required],
       fullName: ['', Validators.required],
       roles: [''],
-      confirmPasssword: ['', Validators.required]
+      confirmPassword: ['', Validators.required]
     },
       {
         validator: this.passwordMatchValidator,
       }
     );
-    console.log("sfdfd");
+
     this.roles$ = this.roleService.getRoles();
 
   }
   private passwordMatchValidator(
     control: AbstractControl): { [key: string]: boolean } | null {
     const password = control.get('password')?.value;
-    const confirmPasssword = control.get("confirmPassword")?.value;
-    if (password !== confirmPasssword) {
+    const confirmPassword = control.get("confirmPassword")?.value;
+    if (password !== confirmPassword) {
       return { passwordMismatch: true }
 
     }

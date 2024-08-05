@@ -55,7 +55,7 @@
 
         <mat-form-field appearance="fill" class="w-full">
             <mat-label>Confirm Password</mat-label>
-            <input formControlName="confirmPasssword" matInput type="{{confirmPasswordHide?'password':'text'}}"
+            <input formControlName="confirmPassword" matInput type="{{confirmPasswordHide?'password':'text'}}"
                 placeholder="Confirm Password">
             <mat-icon matPrefix>lock</mat-icon>
             <mat-icon (click)="confirmPasswordHide=!confirmPasswordHide"
@@ -65,13 +65,13 @@
         </mat-form-field>
 
         <span class="text-red-600" *ngIf="registerForm.hasError('passwordMismatch') && 
-        registerForm.get('confirmPasssword')?.dirty && registerForm.get('confirmPasssword')?.touched ">
+        registerForm.get('confirmPassword')?.dirty && registerForm.get('confirmPassword')?.touched ">
             Password do not match.
         </span>
 
 
         <!--  [disabled]="!registerForm.valid"  -->
-        <button [disabled]="false" class="w-full border-collapse text-white rounded-md border-slate-200 disabled:bg-purple-400 py-2 
+        <button [disabled]="!registerForm.valid" class="w-full border-collapse text-white rounded-md border-slate-200 disabled:bg-purple-400 py-2 
         px-3 bg-purple-700" type="submit">
             Register
 
