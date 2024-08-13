@@ -47,10 +47,17 @@
             </mat-form-field>
 
         </div>
-        <button [disabled]="!selectedUser || !selectedRole"
-            class="bg-purple-600 disabled:bg-blue-300 text-white rounded-md px-4 py-2" (click)="assignRole()">
-            Assign
-        </button>
+        <div class="grid grid-cols-2 gap-4 my-6  w-2/3 ">
+            <button [disabled]="!selectedUser || !selectedRole"
+                class="bg-purple-600 disabled:bg-blue-300 text-white rounded-md px-4 py-2 gap-4" (click)="assignRole()">
+                Assign
+            </button>
 
+            <button [disabled]="!selectedUser || !selectedRole"
+                class="bg-purple-600 disabled:bg-blue-300  text-white rounded-md px-4 py-2 p-5 gap-4 "
+                (click)="deleteAssignRole()">
+                Delete
+            </button>
+        </div>
     </div>
 </div>

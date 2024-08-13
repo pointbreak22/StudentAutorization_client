@@ -85,4 +85,23 @@ export class RoleComponent {
 
     });
   }
+  deleteAssignRole() {
+    this.roleService.deleteAssignRole(this.selectedUser, this.selectedRole).subscribe({
+      next: (response) => {
+        this.roles$ = this.roleService.getRoles();
+        this.snacBar.open("Role Delete Successfully", "Close", {
+          duration: 3000,
+        });
+      },
+      error: (error: HttpErrorResponse) => {
+        this.snacBar.open(error.message, "Close", {
+          duration: 3000,
+        });
+
+      },
+
+
+    });
+
+  }
 }
